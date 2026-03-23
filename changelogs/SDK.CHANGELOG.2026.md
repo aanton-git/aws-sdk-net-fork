@@ -1,3 +1,54 @@
+### 4.0.215.0 (2026-03-20 18:24 UTC)
+* Backup (4.0.10.14)
+	* Fix Typo for S3Backup Options ( S3BackupACLs to BackupACLs)
+* DynamoDBv2 (4.0.17.0)
+	* Adding ReplicaArn to ReplicaDescription of a global table replica
+* OpenSearchService (4.0.13.0)
+	* Added support for Amazon Managed Service for Prometheus (AMP) as a connected data source in OpenSearch UI. Now users can analyze Prometheus metrics in OpenSearch UI without data copy.
+* VerifiedPermissions (4.0.7.0)
+	* Adds support for Policy Store Aliases, Policy Names, and Policy Template Names. These are customizable identifiers that can be used in place of Policy Store ids, Policy ids, and Policy Template ids respectively in Amazon Verified Permissions APIs.
+
+### 4.0.214.0 (2026-03-19 20:24 UTC)
+* Batch (4.0.7.0)
+	* AWS Batch now supports quota management, enabling administrators to allocate shared compute resources across teams and projects through quota shares with capacity limits, resource-sharing strategies, and priority-based preemption - currently available for SageMaker Training job queues.
+* BedrockAgentCore (4.0.13.0)
+	* This release includes SDK support for the following new features on AgentCore Built In Tools.  1. Enterprise Policies for AgentCore Browser Tool. 2. Root CA Configuration Support for AgentCore Browser Tool and Code Interpreter. 3. API changes to AgentCore Browser Profile APIs
+* BedrockAgentCoreControl (4.0.22.0)
+	* Adds support for the following new features. 1. Enterprise Policies support for AgentCore Browser Tool. 2. Root CA Configuration support for AgentCore Browser Tool and Code Interpreter.
+* DynamoDBv2 (4.0.16.0)
+	* [Breaking Change] Fix DynamoDB property converter precedence when a global converter is registered.
+	* Adds support for ReturnConsumedCapacity on Query/Scan DocumentClient.
+* EC2 (4.0.82.0)
+	* Amazon EC2 Fleet instant mode now supports launching instances into Interruptible Capacity Reservations, enabling customers to use spare capacity shared by Capacity Reservation owners within their AWS Organization.
+* ObservabilityAdmin (4.0.7.0)
+	* Adding a new field in the CreateCentralizationRuleForOrganization, UpdateCentralizationRuleForOrganization API and updating the GetCentralizationRuleForOrganization API response to include the new field
+* Polly (4.0.5.0)
+	* Added bi-directional streaming functionality through a new API, StartSpeechSynthesisStream. This API allows streaming input text through inbound events and receiving audio as part of an output stream simultaneously.
+* Core 4.0.3.20
+	* Fixed AssumeRoleWithWebIdentityCredentialsOptions.ProxySettings being ignored sometimes.
+
+### 4.0.213.0 (2026-03-18 18:57 UTC)
+* DSQL (4.0.9.0)
+	* Add configurable token expiry duration to DSQLAuthTokenGenerator. New overloads accept a TimeSpan parameter to set token lifetime, with validation between 0 and 7 days. Default remains 15 minutes for backwards compatibility.
+* EC2 (4.0.81.0)
+	* The DescribeInstanceTypes API now returns default connection tracking timeout values for TCP, UDP, and UDP stream via the new connectionTrackingConfiguration field on NetworkInfo.
+* MediaConvert (4.0.15.0)
+	* This update adds additional bitrate options for Dolby AC-4 audio outputs.
+* SageMakerRuntimeHTTP2 (4.0.0.1)
+	* Add support for SageMakerRuntimeHTTP2 bidirectional streaming. This is only supported in .NET8
+* Core 4.0.3.19
+	* Add DocumentJsonConverter to fix System.Text.Json serialization of Document types. Document's IEnumerable interfaces caused STJ to treat it as a collection, throwing InvalidDocumentTypeConversionException.
+	* Add support for event headers for event stream based APIs used in services like SageMakerRuntimeHttp2.
+	* All service and extension packages updated to require new Core
+
+### 4.0.212.0 (2026-03-17 18:18 UTC)
+* BedrockAgentCoreControl (4.0.21.0)
+	* Deprecating namespaces field and adding namespaceTemplates.
+* ElasticMapReduce (4.0.8.0)
+	* Add S3LoggingConfiguration to Control LogUploads
+* Glue (4.0.27.0)
+	* Provide approval to overwrite existing Lake Formation permissions on all child resources with the default permissions specified in 'CreateTableDefaultPermissions' and 'CreateDatabaseDefaultPermissions' when updating catalog. Allowed values are ["Accept","Deny"] .
+
 ### 4.0.211.1 (2026-03-16 21:26 UTC)
 * Extensions.Bedrock.MEAI (4.0.6.1)
 	* Revert: Update `IChatClient` with latest `BedrockRuntime` / M.E.AI (adding support for multi-modal tool returns and citations with URIs)

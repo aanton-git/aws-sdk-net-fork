@@ -986,8 +986,8 @@ namespace AWSSDK_DotNet.IntegrationTests.Tests.DynamoDB
         }
 
         [TestMethod]
-        [TestCategory("UnitTest")]
-        public async Task TestContext_Delete_With_ExpressionCondition()
+        [TestCategory("DynamoDBv2")]
+        public async Task TestContext_DeleteAsync_With_ExpressionCondition()
         {
             VersionedAnnotatedEmployee employee1 = new VersionedAnnotatedEmployee
             {
@@ -1029,6 +1029,55 @@ namespace AWSSDK_DotNet.IntegrationTests.Tests.DynamoDB
             Assert.IsNotNull(loadeItem2);
 
             await Context.DeleteAsync(employee2);
+
+            var loadeItemAfterDelete2 = Context.Load<VersionedAnnotatedEmployee>(employee2.Name, employee2.Age);
+            Assert.IsNull(loadeItemAfterDelete2);
+        }
+
+        [TestMethod]
+        [TestCategory("DynamoDBv2")]
+        public void TestContext_DeleteItem_With_ExpressionCondition()
+        {
+            VersionedAnnotatedEmployee employee1 = new VersionedAnnotatedEmployee
+            {
+                Name = "Alan",
+                Age = 31,
+                CompanyName = "Big River",
+                CurrentStatus = Status.Active,
+                Score = 120,
+                ManagerName = "Barbara",
+                InternalId = "Alan@BigRiver",
+                Aliases = new List<string> { "Al", "Steve" },
+                Data = Encoding.UTF8.GetBytes("Some binary data")
+            };
+
+            VersionedAnnotatedEmployee employee2 = new VersionedAnnotatedEmployee
+            {
+                Name = "Alanee",
+                Age = 33,
+                CompanyName = "Big River",
+                CurrentStatus = Status.Active,
+                Score = 120,
+                ManagerName = "Barbara",
+                InternalId = "Alan@BigRiver",
+                Aliases = new List<string> { "Al", "Steve" },
+                Data = Encoding.UTF8.GetBytes("Some binary data")
+            };
+
+            Context.Save(employee1);
+            var loadeItem = Context.Load<VersionedAnnotatedEmployee>(employee1.Name, employee1.Age);
+            Assert.IsNotNull(loadeItem);
+
+            Context.Delete(employee1, new DeleteConfig() { SkipVersionCheck = true });
+
+            var loadeItemAfterDelete = Context.Load<VersionedAnnotatedEmployee>(employee1.Name, employee1.Age);
+            Assert.IsNull(loadeItemAfterDelete);
+
+            Context.Save(employee2);
+            var loadeItem2 = Context.Load<VersionedAnnotatedEmployee>(employee2.Name, employee2.Age);
+            Assert.IsNotNull(loadeItem2);
+
+            Context.Delete(employee2);
 
             var loadeItemAfterDelete2 = Context.Load<VersionedAnnotatedEmployee>(employee2.Name, employee2.Age);
             Assert.IsNull(loadeItemAfterDelete2);

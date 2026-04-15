@@ -30,7 +30,8 @@ using Amazon.Runtime.Internal;
 namespace Amazon.BedrockAgentCore.Model
 {
     /// <summary>
-    /// First event indicating command execution has started
+    /// An event that signals the start of content streaming from a command execution. This
+    /// event is sent when the command begins producing output.
     /// </summary>
     public partial class ContentStartEvent
     {

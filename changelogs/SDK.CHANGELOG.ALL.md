@@ -1,3 +1,109 @@
+### 4.0.221.0 (2026-03-30 18:27 UTC)
+* AppStream (4.0.7.0)
+	* Add support for URL Redirection
+* AutoScaling (4.0.9.0)
+	* Adds support for new instance lifecycle states introduced by the instance lifecycle policy and replace root volume features.
+* BedrockAgentCore (4.0.15.0)
+	* Adds Ground Truth support for AgentCore Evaluations (Evaluate)
+* CloudWatchLogs (4.0.17.0)
+	* Adds Lookup Tables to CloudWatch Logs for log enrichment using CSV key-value data with KMS encryption support.
+* Deadline (4.0.15.0)
+	* AWS Deadline Cloud now supports three new fleet auto scaling settings. With scale out rate, you can configure how quickly workers launch. With worker idle duration, you can set how long workers wait before shutting down. With standby worker count, you can keep idle workers ready for fast job start.
+* DevOpsAgent (4.0.0.0)
+	* AWS DevOps Agent General Availability.
+* ECS (4.0.16.0)
+	* Adding Local Storage support for ECS Managed Instances by introducing a new field "localStorageConfiguration" for CreateCapacityProvider and UpdateCapacityProvider APIs.
+* GameLift (4.0.7.7)
+	* Update CreateScript API documentation.
+* LakeFormation (4.0.4.10)
+	* Add setSourceIdentity to DataLakeSettings Parameters
+* OpenSearchService (4.0.14.0)
+	* Added Cluster Insights API's In OpenSearch Service SDK.
+* PartnerCentralAccount (4.0.2.0)
+	* KYB Supplemental Form enables partners who fail business verification to submit additional details and supporting documentation through a self-service form, triggering an automated re-verification without requiring manual intervention from support teams.
+* SageMaker (4.0.48.0)
+	* Added support for placement strategy and consolidation for SageMaker inference component endpoints. Customers can now configure how inference component copies are distributed across instances and availability zones (AZs), and enable automatic consolidation to optimizes resource utilization.
+
+### 4.0.220.0 (2026-03-27 18:14 UTC)
+* BedrockAgentCore (4.0.14.0)
+	* Adding AgentCore Code Interpreter Node.js Runtime Support with an optional runtime field
+* BedrockAgentCoreControl (4.0.24.0)
+	* Adds support for custom code-based evaluators using customer-managed Lambda functions.
+* Neptunedata (4.0.4.6)
+	* Minor formatting changes to remove unnecessary symbols.
+* Omics (4.0.7.0)
+	* AWS HealthOmics now supports VPC networking, allowing users to connect runs to external resources with NAT gateway, AWS VPC resources, and more. New Configuration APIs support configuring VPC settings. StartRun API now accepts networkingMode and configurationName parameters to enable VPC networking.
+* Core 4.0.3.24
+	* Fixed HttpContentRequestStreamHandle to cancel SerializeToStreamAsync on dispose, preventing background event consumption that could drain the event publisher and cause retries to hang.
+	* Fixed SignatureDoesNotMatch errors for event stream requests (e.g., Transcribe Streaming) under concurrency by preventing SDK-level retries for event stream requests. The event publisher is a forward-only stream that cannot be rewound, and the AWS4EventSigner signature chain cannot be reset after events are signed during a failed attempt. Operation-level errors such as throttling are now surfaced to the caller for application-level retry.
+	* All service and extension packages updated to require new Core
+
+### 4.0.219.0 (2026-03-26 18:15 UTC)
+* BCMDataExports (4.0.3.0)
+	* With this release we are providing an option to accounts to have their export delivered to an S3 bucket that is not owned by the account.
+* CloudWatchLogs (4.0.16.0)
+	* This release adds parameter support to saved queries in CloudWatch Logs Insights. Define reusable query templates with named placeholders, invoke them using start query. Available in Console, CLI and SDK
+* ElasticMapReduce (4.0.9.0)
+	* Add StepExecutionRoleArn to RunJobFlow API
+* SageMaker (4.0.47.0)
+	* Release support for ml.r5d.16xlarge instance types for SageMaker HyperPod
+* TimestreamInfluxDB (4.0.6.0)
+	* Timestream for InfluxDB adds support for customer defined maintenance windows. This allows customers to define maintenance schedule during resource creation and updates
+* Core 4.0.3.23
+	* Fixed concurrent HTTP/2 event streaming requests (e.g., Amazon Transcribe Streaming) failing with SignatureDoesNotMatch and REFUSED_STREAM errors. The SDK now creates a dedicated HttpClient for each bidirectional event stream request to prevent HTTP/2 multiplexing, which is not supported by services like Amazon Transcribe Streaming that require one connection per stream.
+	* All service and extension packages updated to require new Core
+
+### 4.0.218.0 (2026-03-25 18:14 UTC)
+* ApiGatewayV2 (4.0.5.0)
+	* Added DISABLE IN PROGRESS and DISABLE FAILED Portal statuses.
+* ApplicationSignals (4.0.6.0)
+	* This release adds support for creating SLOs on RUM appMonitors, Synthetics canaries and services.
+* Batch (4.0.8.1)
+	* Documentation-only update for AWS Batch.
+* MarketplaceAgreement (4.0.4.0)
+	* The Variable Payments APIs enable AWS Marketplace Sellers to perform manage their payment requests (send, get, list, cancel).
+* Polly (4.0.6.0)
+	* Add support for Mu-law and A-law codecs for output format
+* S3 (4.0.19.2)
+	* Update docs for Amazon.S3.Transfer.ITransferUtility.OpenStreamWithResponse to add performance tips
+* Uxc (4.0.0.0)
+	* GA release of AccountCustomizations, used to manage account color, visible services, and visible regions settings in the AWS Management Console.
+* Core 4.0.3.22
+	* Optimize ParameterCollection sorting by leveraging ArrayPool for reduced allocations. 
+
+### 4.0.217.0 (2026-03-24 18:16 UTC)
+* BedrockAgentCoreControl (4.0.23.0)
+	* Adds SDK support for 1) Persist session state in AgentCore Runtime via filesystemConfigurations in CreateAgentRuntime, UpdateAgentRuntime, and GetAgentRuntime APIs, 2) Optional name-based filtering on AgentCore ListBrowserProfiles API.
+* ConnectCases (4.0.12.1)
+	* Tags on TagResourceRequest is allowed to contain null values
+* GameLift (4.0.7.4)
+	* Amazon GameLift Servers launches UDP ping beacons in the Beijing and Ningxia (China) Regions to help measure real-time network latency for multiplayer games. The ListLocations API is now available in these regions to provide endpoint domain and port information as part of the locations list.
+* MediaPackageV2 (4.0.11.0)
+	* Reduces the minimum allowed value for startOverWindowSeconds from 60 to 0, allowing customers to effectively disable the start-over window.
+* OpenSearchServerless (4.0.7.0)
+	* Adds support for updating the vector options field for existing collections.
+* PCS (4.0.13.0)
+	* This release adds support for custom slurmdbd and cgroup configuration in AWS PCS. Customers can now specify slurmdbd and cgroup settings to configure database accounting and reporting for their HPC workloads, and control resource allocation and limits for compute jobs.
+* RDS (4.0.19.0)
+	* Adds support in Aurora PostgreSQL serverless databases for express configuration based creation through WithExpressConfiguration in CreateDbCluster API, and for restoring clusters using RestoreDBClusterToPointInTime and RestoreDBClusterFromSnapshot APIs.
+* Extensions.CborProtocol (4.0.0.29)
+	* Unmarshall  null values in CBOR maps.
+
+### 4.0.216.0 (2026-03-23 18:18 UTC)
+* Batch (4.0.8.0)
+	* AWS Batch AMI Visibility feature support. Adds read-only batchImageStatus to Ec2Configuration to provide visibility on the status of Batch-vended AMIs used by Compute Environments.
+* ConnectCases (4.0.12.0)
+	* You can now use the UpdateRelatedItem API to update the content of comments and custom related items associated with a case.
+* DynamoDBv2 (4.0.17.1)
+	* Fix Key Expression issue with renamable sort keys.
+	* Extend Expression Builder for Projection expressions.
+* Lightsail (4.0.5.0)
+	* Add support for tagging of ContactMethod resource type
+* Omics (4.0.6.0)
+	* Adds support for batch workflow runs in Amazon Omics, enabling users to submit, manage, and monitor multiple runs as a single batch. Includes APIs to create, cancel, and delete batches, track submission statuses and counts, list runs within a batch, and configure default settings.
+* Core 4.0.3.21
+	* Render <important> and <note> XML doc tags as styled noteblock divs in the SDK reference documentation generator.
+
 ### 4.0.215.0 (2026-03-20 18:24 UTC)
 * Backup (4.0.10.14)
 	* Fix Typo for S3Backup Options ( S3BackupACLs to BackupACLs)

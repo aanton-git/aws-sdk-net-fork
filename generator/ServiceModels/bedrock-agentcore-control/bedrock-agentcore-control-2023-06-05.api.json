@@ -2267,6 +2267,13 @@
       },
       "union":true
     },
+    "CodeBasedEvaluatorConfig":{
+      "type":"structure",
+      "members":{
+        "lambdaConfig":{"shape":"LambdaEvaluatorConfig"}
+      },
+      "union":true
+    },
     "CodeConfiguration":{
       "type":"structure",
       "required":[
@@ -2470,6 +2477,7 @@
         "protocolConfiguration":{"shape":"ProtocolConfiguration"},
         "lifecycleConfiguration":{"shape":"LifecycleConfiguration"},
         "environmentVariables":{"shape":"EnvironmentVariablesMap"},
+        "filesystemConfigurations":{"shape":"FilesystemConfigurations"},
         "tags":{"shape":"TagsMap"}
       }
     },
@@ -3832,7 +3840,8 @@
     "EvaluatorConfig":{
       "type":"structure",
       "members":{
-        "llmAsAJudge":{"shape":"LlmAsAJudgeEvaluatorConfig"}
+        "llmAsAJudge":{"shape":"LlmAsAJudgeEvaluatorConfig"},
+        "codeBased":{"shape":"CodeBasedEvaluatorConfig"}
       },
       "union":true
     },
@@ -3925,7 +3934,8 @@
       "type":"string",
       "enum":[
         "Builtin",
-        "Custom"
+        "Custom",
+        "CustomCode"
       ]
     },
     "ExceptionLevel":{
@@ -3938,6 +3948,19 @@
         "customExtractionConfiguration":{"shape":"CustomExtractionConfiguration"}
       },
       "union":true
+    },
+    "FilesystemConfiguration":{
+      "type":"structure",
+      "members":{
+        "sessionStorage":{"shape":"SessionStorageConfiguration"}
+      },
+      "union":true
+    },
+    "FilesystemConfigurations":{
+      "type":"list",
+      "member":{"shape":"FilesystemConfiguration"},
+      "max":1,
+      "min":0
     },
     "Filter":{
       "type":"structure",
@@ -4281,7 +4304,8 @@
         "environmentVariables":{"shape":"EnvironmentVariablesMap"},
         "authorizerConfiguration":{"shape":"AuthorizerConfiguration"},
         "requestHeaderConfiguration":{"shape":"RequestHeaderConfiguration"},
-        "metadataConfiguration":{"shape":"RuntimeMetadataConfiguration"}
+        "metadataConfiguration":{"shape":"RuntimeMetadataConfiguration"},
+        "filesystemConfigurations":{"shape":"FilesystemConfigurations"}
       }
     },
     "GetApiKeyCredentialProviderRequest":{
@@ -5038,6 +5062,24 @@
       "min":1,
       "pattern":"arn:aws(|-cn|-us-gov):kms:[a-zA-Z0-9-]*:[0-9]{12}:key/[a-zA-Z0-9-]{36}"
     },
+    "LambdaArn":{
+      "type":"string",
+      "pattern":"arn:(aws[a-zA-Z-]*)?:lambda:([a-z]{2}(-gov)?-[a-z]+-\\d{1}):(\\d{12}):function:([a-zA-Z0-9-_.]+)(:(\\$LATEST|[a-zA-Z0-9-_]+))?"
+    },
+    "LambdaEvaluatorConfig":{
+      "type":"structure",
+      "required":["lambdaArn"],
+      "members":{
+        "lambdaArn":{"shape":"LambdaArn"},
+        "lambdaTimeoutInSeconds":{"shape":"LambdaEvaluatorConfigLambdaTimeoutInSecondsInteger"}
+      }
+    },
+    "LambdaEvaluatorConfigLambdaTimeoutInSecondsInteger":{
+      "type":"integer",
+      "box":true,
+      "max":300,
+      "min":1
+    },
     "LambdaFunctionArn":{
       "type":"string",
       "max":170,
@@ -5197,7 +5239,8 @@
           "shape":"NextToken",
           "location":"querystring",
           "locationName":"nextToken"
-        }
+        },
+        "name":{"shape":"BrowserProfileName"}
       }
     },
     "ListBrowserProfilesResponse":{
@@ -5939,6 +5982,12 @@
         "reflection":{"shape":"ModifyReflectionConfiguration"},
         "selfManagedConfiguration":{"shape":"ModifySelfManagedConfiguration"}
       }
+    },
+    "MountPath":{
+      "type":"string",
+      "max":200,
+      "min":6,
+      "pattern":"/mnt/[a-zA-Z0-9._-]+/?"
     },
     "Name":{
       "type":"string",
@@ -6894,6 +6943,13 @@
       "max":1440,
       "min":1
     },
+    "SessionStorageConfiguration":{
+      "type":"structure",
+      "required":["mountPath"],
+      "members":{
+        "mountPath":{"shape":"MountPath"}
+      }
+    },
     "SetTokenVaultCMKRequest":{
       "type":"structure",
       "required":["kmsConfiguration"],
@@ -7471,6 +7527,7 @@
         "lifecycleConfiguration":{"shape":"LifecycleConfiguration"},
         "metadataConfiguration":{"shape":"RuntimeMetadataConfiguration"},
         "environmentVariables":{"shape":"EnvironmentVariablesMap"},
+        "filesystemConfigurations":{"shape":"FilesystemConfigurations"},
         "clientToken":{
           "shape":"ClientToken",
           "idempotencyToken":true
